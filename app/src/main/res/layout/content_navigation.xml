@@ -8,4 +8,15 @@
     tools:context="com.smsbalance.NavigationActivity"
     tools:showIn="@layout/app_bar_navigation">
 
+    <ListView
+        android:id="@+id/MainList"
+        style="@android:style/Widget.DeviceDefault.ExpandableListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:headerDividersEnabled="false"
+        app:layout_constraintDimensionRatio="w,1:1"
+        tools:layout_editor_absoluteX="-346dp"
+        tools:layout_editor_absoluteY="-25dp" />
+
+
 </android.support.constraint.ConstraintLayout>
