@@ -1,32 +1,28 @@
 package com.smsbalance;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.Context;
 
+import com.smsbalance.data.DetailsListEntry;
 import com.smsbalance.data.MainListEntry;
 
 import java.util.List;
 
-/**
- * Created by gioal on 15.07.2017.
- */
-
-public class MainListViewAdapter extends BaseAdapter {
-
+public class DetailsPopupListAdapter extends BaseAdapter {
     private final Context context;
-    private List<MainListEntry> data;
+    private List<DetailsListEntry> data;
 
-    public MainListViewAdapter(Context context) {
+    public DetailsPopupListAdapter(Context context) {
         this.context = context;
         this.data = null;
     }
 
-    public void setData(List<MainListEntry> data) {
+    public void setData(List<DetailsListEntry> data) {
         this.data = data;
     }
 
@@ -36,7 +32,7 @@ public class MainListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public MainListEntry getItem(int position) {
+    public DetailsListEntry getItem(int position) {
         return (data != null) ? data.get(position) : null;
     }
 
@@ -50,36 +46,28 @@ public class MainListViewAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_item, container, false);
+            convertView = inflater.inflate(R.layout.details_popup_list_item, container, false);
         }
 
         if (data != null) {
-            MainListEntry entry = data.get(position);
+            DetailsListEntry entry = data.get(position);
             TextView text;
 
-            ImageView img = (ImageView) convertView.findViewById(R.id.img);
-            img.setImageResource(getEntryImageID(entry));
-
-            text = (TextView) convertView.findViewById(R.id.text_source);
-            text.setText(entry.getGroup());
-
             text = (TextView) convertView.findViewById(R.id.text_entity);
-            text.setText(entry.getName());
+            text.setText(entry.getEntity());
 
             text = (TextView) convertView.findViewById(R.id.text_amount);
-            text.setText(entry.getValue());
+            text.setText(entry.getAmount());
+
+            text = (TextView) convertView.findViewById(R.id.text_balance);
+            text.setText(entry.getBalance());
+
+            text = (TextView) convertView.findViewById(R.id.text_pos);
+            text.setText(entry.getPos());
         }
 
         return convertView;
     }
 
-    private int getEntryImageID(MainListEntry entry) {
-        if (entry.getGroup().compareTo("LibertyBank") == 0)
-            return R.drawable.le_libertybank;
-        else if (entry.getGroup().compareTo("TBC SMS") == 0)
-            return R.drawable.le_tbcbank;
-        else
-            return R.drawable.le_unknown;
-    }
 
 }

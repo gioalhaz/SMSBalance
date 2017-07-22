@@ -9,14 +9,82 @@ import java.util.HashMap;
 public class SMSParser {
     public class Result {
 
-        public boolean matched = false;
-        public String cardMask;
-        public String cardDescription;
-        public String pos;
-        public String amount;
-        public String amountCurrency;
-        public String balance;
-        public String balanceCurrency;
+        private boolean matched = false;
+        private String cardMask;
+        private String cardDescription;
+        private String pos;
+        private String amount;
+        private String amountCurrency;
+        private String balance;
+        private String balanceCurrency;
+
+        public boolean isMatched() {
+            return matched;
+        }
+
+        public void setMatched(boolean matched) {
+            this.matched = matched;
+        }
+
+        public String getCardMask() {
+            return cardMask;
+        }
+
+        public void setCardMask(String cardMask) {
+            this.cardMask = cardMask;
+        }
+
+        public String getCardDescription() {
+            return cardDescription;
+        }
+
+        public void setCardDescription(String cardDescription) {
+            this.cardDescription = cardDescription;
+        }
+
+        public String getCardCoalesce() {
+            return (cardMask == null) ? cardDescription : cardMask;
+        }
+
+        public String getPos() {
+            return pos;
+        }
+
+        public void setPos(String pos) {
+            this.pos = pos;
+        }
+
+        public String getAmount() {
+            return amount;
+        }
+
+        public void setAmount(String amount) {
+            this.amount = amount;
+        }
+
+        public String getAmountCurrency() {
+            return amountCurrency;
+        }
+
+        public void setAmountCurrency(String amountCurrency) {
+            this.amountCurrency = amountCurrency;
+        }
+
+        public String getBalance() {
+            return balance;
+        }
+
+        public void setBalance(String balance) {
+            this.balance = balance;
+        }
+
+        public String getBalanceCurrency() {
+            return balanceCurrency;
+        }
+
+        public void setBalanceCurrency(String balanceCurrency) {
+            this.balanceCurrency = balanceCurrency;
+        }
     }
 
     protected StringParser parser;
@@ -32,14 +100,14 @@ public class SMSParser {
 
         HashMap<String, String> hash = parser.parse(smsText);
         if(hash != null) {
-            result.matched = true;
-            result.pos = getGroup(hash, "pos");
-            result.cardMask = getGroup(hash, "card_mask");
-            result.cardDescription = getGroup(hash, "card_desc");
-            result.amount = normalizeAmount(getGroup(hash, "amount"));
-            result.amountCurrency = getGroup(hash, "amount_cur");
-            result.balance = normalizeAmount(getGroup(hash, "balance"));
-            result.balanceCurrency = getGroup(hash, "balance_cur");
+            result.setMatched(true);
+            result.setPos(getGroup(hash, "pos"));
+            result.setCardMask(getGroup(hash, "card_mask"));
+            result.setCardDescription(getGroup(hash, "card_desc"));
+            result.setAmount(normalizeAmount(getGroup(hash, "amount")));
+            result.setAmountCurrency(getGroup(hash, "amount_cur"));
+            result.setBalance(normalizeAmount(getGroup(hash, "balance")));
+            result.setBalanceCurrency(getGroup(hash, "balance_cur"));
         }
 
         return result;

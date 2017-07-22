@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 
 public class SMSParserMan {
+
     public class ParserRecord {
 
         public ParserRecord(String source, SMSParser parser){
@@ -30,12 +31,29 @@ public class SMSParserMan {
             if (record.source.compareTo(source) == 0) {
                 SMSParser.Result result = record.parser.parse(body);
 
-                if (result.matched)
+                if (result.isMatched())
                     return result;
             }
         }
 
         return null;
+    }
+
+    public static SMSParserMan createSMSParserMan() {
+
+        SMSParser parser;
+        SMSParserMan man = new SMSParserMan();
+
+        parser = new SMSParser("tqveni baratit ...{card_mask} ganxorcielda gadaxdis operacia {amount_cur} {amount}. mimgebi:{pos} - xelmisatsvdomi nashti: {balance_cur} {balance}");
+        man.AddParser("LibertyBank", parser);
+
+        parser = new SMSParser("tqveni baratit ...{card_mask} bankomatidan {pos} gatanilia {amount_cur} {amount} - xelmisatsvdomi nashti: {balance_cur} {balance}");
+        man.AddParser("LibertyBank", parser);
+
+        parser = new SMSParser("საბარათე ოპერაცია: {dummy_var} {dummy_var}\nბარათი: {card_desc}\nთანხა: {amount} {amount_cur}\n{pos}\nხელმისაწვდომი: {balance} {balance_cur}\nგმადლობთ");
+        man.AddParser("TBC SMS", parser);
+
+        return man;
     }
 
 }

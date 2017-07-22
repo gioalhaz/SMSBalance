@@ -1,10 +1,7 @@
 package com.smsbalance;
 
+import com.smsbalance.processing.SMSParser;
 import java.util.Date;
-
-/**
- * Created by gioal on 02.07.2017.
- */
 
 public class SMSContent {
 
@@ -19,4 +16,10 @@ public class SMSContent {
     public String body;
     public int deleted;
     public int type;
+
+    public SMSParser.Result data;
+
+    public String getUniqueKey() {
+        return address + data.getCardCoalesce();
+    }
 }
