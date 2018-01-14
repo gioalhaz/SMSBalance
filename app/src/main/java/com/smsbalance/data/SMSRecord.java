@@ -2,10 +2,6 @@ package com.smsbalance.data;
 
 import java.util.Date;
 
-/**
- * Created by gioal on 02.07.2017.
- */
-
 public class SMSRecord {
     public static int TYPE_INBOX = 1;
     public static int TYPE_SENT = 2;

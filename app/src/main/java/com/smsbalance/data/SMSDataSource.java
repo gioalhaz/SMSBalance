@@ -2,26 +2,19 @@ package com.smsbalance.data;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Created by gioal on 02.07.2017.
- */
 
 public class SMSDataSource {
     // Database fields
     private SQLiteDatabase database;
-    private SMSRecordsDBHelper dbHelper;
+    private DBHelper dbHelper;
 //    private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
 //            MySQLiteHelper.COLUMN_COMMENT };
 
     public SMSDataSource(Context context) {
-        dbHelper = new SMSRecordsDBHelper(context);
+        dbHelper = new DBHelper(context);
     }
 
     public void open() throws SQLException {
@@ -36,10 +29,9 @@ public class SMSDataSource {
 
         ContentValues values = new ContentValues();
 
-//        values.put(SMSRecordsDBHelper.COLUMN_COMMENT, comment);
+//        values.put(DBHelper.COLUMN_COMMENT, comment);
 
-        long insertId = database.insert(SMSRecordsDBHelper.TABLE_RECORDS, null,
-                values);
+        long insertId = database.insert(DBHelper.TABLE_RECORDS_NAME, null, values);
     }
 
 //    public void deleteSMSRecord(Comment comment) {
@@ -52,7 +44,7 @@ public class SMSDataSource {
 //    public List<SMSRecord> getAllSMSRecords() {
 //        List<SMSRecord> list = new ArrayList<SMSRecord>();
 //
-//        Cursor cursor = database.query(SMSRecordsDBHelper.TABLE_COMMENTS,
+//        Cursor cursor = database.query(DBHelper.TABLE_COMMENTS,
 //                allColumns, null, null, null, null, null);
 //
 //        cursor.moveToFirst();
